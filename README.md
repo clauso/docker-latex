@@ -1,8 +1,9 @@
 # Docker Container for LaTeX build
 
 This is how to build a Debian container for compiling LaTeX documents. For a project we had
-to build a complex report using a lot of LaTeX features. This container provides a consistent
+to build a complex report using a lot of LaTeX and Python features. This container provides a consistent
 build environment for all project participants.
+The LaTeX environment should be pretty complete.
 
 
 ## Build the image for docker
@@ -20,9 +21,9 @@ docker build -t claus/latex .
 Run inside the report dir:
 
 ```
-docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex				# Get a shell
+docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex			# Get a shell
 
-docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make			# Build the report
+docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make		# Build the report
 docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make clean	# Clean up
 ```
 
