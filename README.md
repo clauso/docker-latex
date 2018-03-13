@@ -21,10 +21,10 @@ docker build -t claus/latex .
 Run inside the report dir:
 
 ```
-docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex			# Get a shell
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex			# Get a shell
 
-docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make		# Build the report
-docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make clean	# Clean up
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make		# Build the report
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make clean	# Clean up
 ```
 
 Explanation of parameters:
@@ -32,6 +32,7 @@ Explanation of parameters:
 * __*--name latexbuild*__ : gives container a name
 * __*--rm*__ : deletes container afer use
 * __*-v "$(pwd)":/mnt*__ : creates bind mount for the local dir to /mnt in the container
+* __*-u "$(id -u):$(id -g)"*__ : run as current user and group inside container
 
 __The container is spawned from the image for every build and is discarded afterwards. Only files in the
 mounted report directory are modified.__
@@ -39,7 +40,7 @@ mounted report directory are modified.__
 ### Run bash and keep container (only for testing/debugging)
 
 ```
-docker run -it --name latexbuild -v "$(pwd)"/report:/mnt claus/latex bash
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild -v "$(pwd)"/report:/mnt claus/latex bash
 ```
 
 
