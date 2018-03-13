@@ -1,41 +1,51 @@
 # Docker Container for LaTeX build
 
-This is how to build a Debian container for compiling LaTeX documents.
+This is how to build a Debian container for compiling LaTeX documents. For a project we had
+to build a complex report using a lot of LaTeX features. This container provides a consistent
+build environment for all project participants.
+
 
 ## Build the image for docker
 
+This is only required once.
 ```
 docker build -t claus/latex .
 ```
 
 ## Run LaTeX
 
-1. Checkout the report to "report"
-
-### Run once and keep container (only for testing)
-
-```
-docker run -it --name latexbuild -v "$(pwd)"/report:/mnt claus/latex bash
-```
 
 ### Run and remove container aferwards (recommended)
 
 Run inside the report dir:
 
 ```
-docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex		# Get a shell
+docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex				# Get a shell
 
-docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make
-docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make clean
+docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make			# Build the report
+docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make clean	# Clean up
 ```
 
+Explanation of parameters:
 * __*-it*__ : makes command interactive
 * __*--name latexbuild*__ : gives container a name
 * __*--rm*__ : deletes container afer use
 * __*-v "$(pwd)":/mnt*__ : creates bind mount for the local dir to /mnt in the container
 
+__The container is spawned from the image for every build and is discarded afterwards. Only files in the
+mounted report directory are modified.__
+
+### Run bash and keep container (only for testing/debugging)
+
+```
+docker run -it --name latexbuild -v "$(pwd)"/report:/mnt claus/latex bash
+```
+
 
 ## Copy the image to another computer
+
+This is an alternative if you do not want to build the image, e.g. if you want to keep one state, and you want to
+have the image on multiple hosts.
 
 ```
 docker save -o docker-latex.image claus/latex
