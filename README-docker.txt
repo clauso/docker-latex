@@ -28,6 +28,6 @@ docker run -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make clean
 
 ### Copy the image to another computer
 
-docker save -o <save image to path> <image name>
+docker save -o docker-latex.image claus/latex
 
 docker load -i <path to image tar file>
