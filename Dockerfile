@@ -13,6 +13,8 @@ RUN apt-get update \
 		texlive-latex-extra \
 		texlive-fonts-extra \
 		texlive-extra-utils \
+		texlive-lang-german \
+		texlive-lang-english \
 		latexmk \
 		python3-pygments \
 		python-pygments \
@@ -27,6 +29,7 @@ RUN apt-get update \
     && apt-get autoclean \
 	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/ \
 	&& pip3 install pygal tinycss
+RUN apt-get upgrade -y
 
 WORKDIR /mnt
 CMD ["bash"]
