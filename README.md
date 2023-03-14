@@ -16,7 +16,7 @@ docker build -t claus/latex .
 ## Run LaTeX
 
 
-### Run and remove container aferwards (recommended)
+### Run and remove container afterwards (recommended)
 
 Run inside the report dir:
 
