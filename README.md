@@ -21,10 +21,10 @@ docker build -t claus/latex .
 Run inside the report dir:
 
 ```
-docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex			# Get a shell
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex  	 # Build the report
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex clean	 # Clean up
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex --help # Get help
 
-docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make		# Build the report
-docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex make clean	# Clean up
 ```
 
 Explanation of parameters:
@@ -40,7 +40,7 @@ mounted report directory are modified.__
 ### Run bash and keep container (only for testing/debugging)
 
 ```
-docker run -u "$(id -u):$(id -g)" -it --name latexbuild -v "$(pwd)"/report:/mnt claus/latex bash
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild -v "$(pwd)"/report:/mnt --entrypoint bash claus/latex 
 ```
 
 

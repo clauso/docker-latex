@@ -11,6 +11,7 @@ RUN apt-get update \
 		make \
 		texlive \
 		texlive-latex-extra \
+		texlive-latex-recommended \
 		texlive-fonts-extra \
 		texlive-extra-utils \
 		texlive-lang-german \
@@ -32,4 +33,5 @@ RUN apt-get update \
 RUN apt-get upgrade -y
 
 WORKDIR /mnt
-CMD ["bash"]
+ENTRYPOINT ["make"]
+
