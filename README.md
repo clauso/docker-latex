@@ -18,7 +18,7 @@ docker build -t claus/latex .
 
 ### Run and remove container afterwards (recommended)
 
-Run inside the report dir:
+Per default we assume you have a project with a Makefile, so the docker container will run `make` as an entrypoint (see below if you don't want to use `make`):
 
 ```
 docker run -u "$(id -u):$(id -g)" -it --name latexbuild --rm -v "$(pwd)":/mnt claus/latex  	 # Build the report
@@ -36,6 +36,12 @@ Explanation of parameters:
 
 __The container is spawned from the image for every build and is discarded afterwards. Only files in the
 mounted report directory are modified.__
+
+
+If you do not have a Makefile, just set an empty entrypoint using the `--entrypoint` argument to run any command, eg. `pdflatex`:
+```
+docker run -u "$(id -u):$(id -g)" -it --name latexbuild --entrypoint "" --rm -v "$(pwd)":/mnt claus/latex pdflatex document.tex
+```
 
 ### Run bash and keep container (only for testing/debugging)
 
